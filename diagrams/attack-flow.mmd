@@ -1,0 +1,25 @@
+flowchart TD
+    A["Targeted email: fake podcast invitation<br/>(pretext built from target's public posts)"] --> B["Meeting link sent ~7 min before start<br/>hxxps://streamyard[.]host12us[.]com/meeting/MEETING-ID"]
+    B --> C["Page loads: React 'Webinar' UI<br/>+ obfuscated tracker.js"]
+    C --> D{"Path matches<br/>/meeting/[A-Za-z0-9]+ ?"}
+    D -- no --> E["location.replace('/denied.html')"]
+    D -- yes --> F["Capture-phase document click listener"]
+    F --> G{"Click on .join-button or a button/link<br/>whose text contains 'join' / 'connecting'?"}
+    G -- no --> H["Page behaves normally"]
+    G -- yes --> I["preventDefault() + stopPropagation()"]
+    I --> J["Telemetry: GET /api/hit?code=..&event=click&button=join&t=..<br/>(Image beacon + fetch keepalive)"]
+    I --> K["fetch /api/join?code=.. (cache: no-store)"]
+    K --> L{"JSON action"}
+    L -- redirect --> M["window.location.assign(url)"]
+    L -- download --> N["Hidden 0x0 iframe src=url"]
+    L -- other / error --> O["Error swallowed; busy flag reset"]
+    N --> P["Brave download record: /download/TOKEN<br/>application/octet-stream, 857 bytes announced"]
+    P --> Q["User cancelled at save prompt<br/>state=2, interrupt_reason=40, received=0, opened=0"]
+    Q --> R["No execution or persistence identified<br/>in the reviewed evidence (not exhaustive)"]
+
+    classDef confirmed fill:#e6f4ea,stroke:#1e8e3e,color:#000;
+    classDef observed fill:#e8f0fe,stroke:#1a73e8,color:#000;
+    classDef inferred fill:#fef7e0,stroke:#f9ab00,color:#000;
+    class C,D,E,F,G,I,J,K,L,M,N,P,Q confirmed;
+    class A,B observed;
+    class R inferred;

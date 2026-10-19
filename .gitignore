@@ -1,0 +1,89 @@
+# .gitignore is a safety net, not a substitute for reviewing every staged file.
+
+# --- Browser databases and profile data ---
+History
+History-journal
+History-wal
+DIPS
+DIPS-wal
+DIPS-journal
+*-wal
+*-shm
+*-journal
+*.sqlite
+*.sqlite3
+*.db
+Cookies*
+Login Data*
+Web Data*
+Preferences
+Secure Preferences
+Local Storage/
+Session Storage/
+Sessions/
+IndexedDB/
+Local Extension Settings/
+*.ldb
+*.log
+
+# --- Credentials and secrets ---
+.env
+.env.*
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+*.kdbx
+secrets*
+*token*
+*.eml
+
+# --- Attacker samples and derived content (not approved for release) ---
+*.js
+!docs/**/*.js
+samples/
+decoded/
+tracker-report/
+*_STATIC_ONLY.txt
+decoded_table.json
+result.json
+*.gz
+*.zip
+*.7z
+*.tar
+*.tar.*
+
+# --- Downloads and executables ---
+*.bin
+*.exe
+*.dll
+*.so
+*.elf
+*.AppImage
+*.appimage
+*.deb
+*.rpm
+*.sh
+*.run
+*.desktop
+*.jar
+*.dmg
+*.pkg
+*.msi
+
+# --- Private working material ---
+private/
+evidence/
+ir-*/
+*.private.md
+files-timeline.txt
+screenshots/
+*.png
+*.jpg
+*.jpeg
+
+# --- Tooling ---
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
